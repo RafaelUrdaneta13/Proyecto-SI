@@ -16,6 +16,15 @@ import { MueblesComponent } from './components/rutas/departamentos/muebles/muebl
 import { BanoComponent } from './components/rutas/departamentos/bano/bano.component';
 import { RecomendadosComponent } from './components/rutas/recomendados/recomendados.component';
 import { OfertasComponent } from './components/rutas/ofertas/ofertas.component';
+import { AngularFireModule } from '@angular/fire';
+import { environment } from '../environments/environment';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { ConexionService } from './services/conexion.service';
+import { ListaComponent } from './components/firebase/lista/lista.component';
+import { ListaAddComponent } from './components/firebase/lista-add/lista-add.component';
+import { FormsModule } from  '@angular/forms';
 
 
 //Rutas
@@ -50,13 +59,21 @@ const routes: Routes = [
     MueblesComponent,
     BanoComponent,
     RecomendadosComponent,
-    OfertasComponent
+    OfertasComponent,
+    ListaComponent,
+    ListaAddComponent
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(routes)
+    FormsModule,
+    RouterModule.forRoot(routes),
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule, // imports firebase/firestore, only needed for database features
+    AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
+    AngularFireStorageModule // imports firebase/storage only needed for storage features
+
   ],
-  providers: [],
+  providers: [ConexionService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
